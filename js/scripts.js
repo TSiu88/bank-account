@@ -40,7 +40,7 @@ Bank.prototype.findAccount = function(id){
  }
 
  BankAccount.prototype.showBalance = function(){
-   $("#balance").text("$" + this.balance);
+   $("#balance").text("$" + this.balance.toFixed(2));
  }
 
 // User Interface Logic
@@ -49,19 +49,23 @@ $(document).ready(function(){
     event.preventDefault();
 
     var nameInput = $("#name").val();
-    var initialDeposit = parseInt($("#initialDeposit").val());
-
+    var initialDeposit = parseFloat($("#initialDeposit").val());
     var account = new BankAccount(nameInput, initialDeposit);
-    account.showBalance();
+
+    if(nameInput === "" || !initialDeposit){
+      alert("Name and initial amount required.")
+    } else{
+      account.showBalance();
+    }
 
     $("#changeBalance").submit(function(event){
       event.preventDefault();
   
-      var depositAmount = parseInt($("#deposit").val());
-      var withdrawalAmount = parseInt($("#withdrawal").val());
+      var depositAmount = parseFloat($("#deposit").val());
+      var withdrawalAmount = parseFloat($("#withdrawal").val());
 
-      parseInt($("#deposit").val(""));
-      parseInt($("#withdrawal").val(""));
+      parseFloat($("#deposit").val(""));
+      parseFloat($("#withdrawal").val(""));
   
       if (depositAmount>0){
         account.deposit(depositAmount);
